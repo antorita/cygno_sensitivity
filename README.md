@@ -5,11 +5,19 @@ BAT is a C++ software package designed to address statistical problems within th
 
 ## Prerequisites
 You need to have ROOT installed to be able to install BAT. Follow the instructions here to install BAT: https://github.com/bat/bat  
+The following Python libraries are required:
+- uproot
+- array 
+- numpy
+- matplotlib.pyplot 
+- mpl_toolkits.axes_grid1
 
 ## Setup
 Once BAT is installed, set the number of events in the input files:
 - background events: input/background.txt
 - data events: input/data.txt
+- [background mean](https://github.com/antorita/cygno_sensitivity/blob/1009ffac2a68482bb6118f5ae11d5f63b60b7680/oldmodel.cxx#L19)
+- [background sigma](https://github.com/antorita/cygno_sensitivity/blob/1009ffac2a68482bb6118f5ae11d5f63b60b7680/oldmodel.cxx#L20)
 
 In this study, assuming no Dark Matter interactions are observed, **20% of the runs were randomly selected to estimate the background**, while the **remaining 80% were used as the main data set**. The background is then rescaled to the data.
 This approach ensures that the **background level is properly accounted for** while maintaining the majority of the data for evaluating the exclusion limit.
@@ -41,12 +49,13 @@ python3 plot.py
 The statistical analysis of the data uses a **Bayesian approach**.
 When the true value of a parameter is consistent with zero, our case for the expected number of DM interactions, the **90% confidence interval (C.I.)** is used to define the **upper limit**. The definition is:  
 ![Bayesian apper limit](https://latex.codecogs.com/svg.image?\mu(90\%C.I.)=\int_0^{\mu_{90\%}}P(\mu\mid\vec{x},H)\,d\mu=0.9)  
-The signal is the number of the interactions observed in the data. Signal prior is chosen to be a uniform distribution because we do not have any hint of the value of the DM cross-section. While the probability of each target element recoiling due to background events measured in the selected samples would follow a Poissonian distribution. However it has been rescaled to match the signal exposure time. This implies that the background uncertainty should be correctly scaled bu the ratio data to background exposure. Given that for a larger number of events a Poissonian distribution can be approximated with a Gaussian distribution, it is used the latter for the background prior to set the proper sigma values.  
-The Likelihood function for evaluating the confidence interval (C.I.) in this rare event analysis with a background contribution is defined as the Poissonina distribution:
+The signal is the number of the interactions observed in the data. [Signal prior](https://github.com/antorita/cygno_sensitivity/blob/1009ffac2a68482bb6118f5ae11d5f63b60b7680/oldmodel.cxx#L81) is chosen to be a uniform distribution because we do not have any hint of the value of the DM cross-section. While the probability of each target element recoiling due to background events measured in the selected samples would follow a Poissonian distribution. However it has been rescaled to match the signal exposure time. This implies that the background uncertainty should be correctly scaled bu the ratio data to background exposure. Given that for a larger number of events a Poissonian distribution can be approximated with a Gaussian distribution, it is used the latter for the [background prior](https://github.com/antorita/cygno_sensitivity/blob/1009ffac2a68482bb6118f5ae11d5f63b60b7680/oldmodel.cxx#L78) to set the proper sigma values.  
+The [Likelihood function](https://github.com/antorita/cygno_sensitivity/blob/1009ffac2a68482bb6118f5ae11d5f63b60b7680/oldmodel.cxx#L66) for evaluating the confidence interval (C.I.) in this rare event analysis with a background contribution is defined as the Poissonina distribution:
 ![Likelihood](https://latex.codecogs.com/svg.image?&space;L(\vec{x}\mid\mu_s,\mu_b,H)=\frac{(\mu_b&plus;\mu_s)^{N_{evt}}}{N_{evt}!}e^{-(\mu_b&plus;\mu_s)})
 where, $N_{evt}$ is the observed total number of events, $\mu_s$ is the signal contribution from WIMP interactions, and $\mu_b$ is the expected background contribution.  
 
 To evaluate the **Dark Matter exclusion limit**, see: https://github.com/antorita/limit_evaluation
 
 ## References
-For more details, see **Chapter 7 of my PhD thesis** https://arxiv.org/abs/2510.01646 
+For more details, see **Chapter 7 of my PhD thesis** https://arxiv.org/abs/2510.01646  
+BAT manual: https://bat.github.io/bat-docs/master/manual/BAT-manual.pdf
