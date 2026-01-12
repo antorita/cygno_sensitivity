@@ -49,4 +49,4 @@ where, $N_{evt}$ is the observed total number of events, $\mu_s$ is the signal c
 To evaluate the **Dark Matter exclusion limit**, see: https://github.com/antorita/limit_evaluation
 
 ## References
-For more details, see **Chapter 7 of my PhD thesis https://arxiv.org/abs/2510.01646 
+For more details, see **Chapter 7 of my PhD thesis** https://arxiv.org/abs/2510.01646 
